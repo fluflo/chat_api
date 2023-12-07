@@ -1,0 +1,11 @@
+{
+  "name": "chat_api",
+  "version": "1.0.0",
+  "description": "A chat api to use, which is coded in JavaScript with express.js, typeorm and websockets",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}
