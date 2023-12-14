@@ -1,37 +1,60 @@
 import * as express from "express"
-import { Request, Response } from "express"
+import * as cors from "cors"
+import * as dotenv from 'dotenv'
+import dataSource from "./data-source";
+
+import { UserRepository } from "./repository/user.repository";
+import { AuthService } from "./service/auth.service";
+import { AuthUserRepository } from "./repository/authUser.repository";
+import { CreateUserDto } from "./dto/createUser.dto";
+import { validate, validateOrReject } from "class-validator";
+import { UserService } from "./service/user.service";
+import { Server } from "socket.io"
+import { AuthController } from "./controller/auth.controller";
+import { UserController } from "./controller/user.controller";
+import { ChatRepository } from "./repository/chat.repository";
+import { ChatParticipant } from "./entity/chatParticipants.entity";
+import { ChatParticipantRepository } from "./repository/chatParticipant.repository";
+import { MessageRepository } from "./repository/message.repository";
+import { ChatService } from "./service/chat.service";
+import { ChatController } from "./controller/chat.controller";
+dotenv.config()
+
+
+dataSource
+    .initialize()
+    .then(() => {
+        console.log("Data Source has been initialized!")
+    })
+    .catch((err)=> {
+        console.error("Error during Data Source initialization:", err)
+    }) 
+
+const userRepository = new UserRepository(dataSource)
+const authRepository = new AuthUserRepository(dataSource)
+const chatRepository = new ChatRepository(dataSource)
+const chatParticipantRepository = new ChatParticipantRepository(dataSource)
+const messageRepository = new MessageRepository(dataSource)
+
+const authService = new AuthService(authRepository, userRepository)
+const userService = new UserService(userRepository)
+const chatService = new ChatService(chatRepository, userRepository, chatParticipantRepository, messageRepository)
 
 // create and setup express app
 const app = express()
-app.use(express.json())
 
-app.post("/auth", function(req: Request, res: Response){
-    
-})
+
+
+
+
+app.use(express.json())
+app.use(cors())
 
 // register routes
+new AuthController(app, authService).registerEndpoints()
+new UserController(app, userService).registerEndpoints()
+new ChatController(app, chatService).registerEndpoints()
 
-app.get("/users", function (req: Request, res: Response) {
-    // here we will have logic to return all users
-})
-
-app.get("/users/:id", function (req: Request, res: Response) {
-    // here we will have logic to return user by id
-})
-
-
-
-app.post("/users", function (req: Request, res: Response) {
-    // here we will have logic to save a user
-})
-
-app.put("/users/:id", function (req: Request, res: Response) {
-    // here we will have logic to update a user by a given user id
-})
-
-app.delete("/users/:id", function (req: Request, res: Response) {
-    // here we will have logic to delete a user by a given user id
-})
 
 // start express server
-app.listen(3000)
+const server = app.listen(3000)
