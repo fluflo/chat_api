@@ -1,0 +1,152 @@
+{
+    "client": "Thunder Client",
+    "collectionName": "Chat",
+    "dateExported": "2023-12-14T16:30:29.759Z",
+    "version": "1.1",
+    "folders": [],
+    "requests": [
+        {
+            "_id": "002f27de-b929-4439-971e-5926a862154b",
+            "colId": "5cb6eec3-a604-4230-a223-71f1fad922ca",
+            "containerId": "",
+            "name": "Authenticate",
+            "url": "http://localhost:3000/users/login",
+            "method": "POST",
+            "sortNum": 10000,
+            "created": "2023-12-12T14:39:18.321Z",
+            "modified": "2023-12-14T15:18:23.438Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"username\": \"Alex\",\n  \"password\": \"Test.1234\"\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "4fc7abc7-5529-4721-98a6-468cb71866d3",
+            "colId": "5cb6eec3-a604-4230-a223-71f1fad922ca",
+            "containerId": "",
+            "name": "Create User",
+            "url": "http://localhost:3000/users",
+            "method": "POST",
+            "sortNum": 15000,
+            "created": "2023-12-12T14:48:43.786Z",
+            "modified": "2023-12-14T15:18:28.774Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"username\":\"Joe\",\n  \"password\":\"Test.1234\",\n  \"firstName\": \"Joe\",\n  \"lastName\": \"Doe\"\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "1da1aa84-9faf-4667-ade9-daea14e52eec",
+            "colId": "5cb6eec3-a604-4230-a223-71f1fad922ca",
+            "containerId": "",
+            "name": "Get users",
+            "url": "http://localhost:3000/users",
+            "method": "GET",
+            "sortNum": 20000,
+            "created": "2023-12-12T14:40:27.023Z",
+            "modified": "2023-12-14T13:42:48.598Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"username\": \"Alex\",\n  \"password\": \"Test.12345\"\n}",
+                "form": []
+            },
+            "auth": {
+                "type": "bearer",
+                "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsImlhdCI6MTcwMjU2MTM1OCwiZXhwIjoxNzAyNTY0OTU4fQ.q4I8uHBtEN37MPp25B5WxsqsOglkiRxXqt7fSjUbTGM"
+            },
+            "tests": []
+        },
+        {
+            "_id": "096a4352-4f46-40f3-a71a-97f6259f632e",
+            "colId": "5cb6eec3-a604-4230-a223-71f1fad922ca",
+            "containerId": "",
+            "name": "Create new Chat",
+            "url": "http://localhost:3000/chats",
+            "method": "POST",
+            "sortNum": 30000,
+            "created": "2023-12-14T14:39:29.589Z",
+            "modified": "2023-12-14T14:39:29.589Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"recipient\": 2\n}",
+                "form": []
+            },
+            "auth": {
+                "type": "bearer",
+                "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsImlhdCI6MTcwMjU2MTM1OCwiZXhwIjoxNzAyNTY0OTU4fQ.q4I8uHBtEN37MPp25B5WxsqsOglkiRxXqt7fSjUbTGM"
+            },
+            "tests": []
+        },
+        {
+            "_id": "a05de9f5-4f07-426f-8b45-1f4586198eca",
+            "colId": "5cb6eec3-a604-4230-a223-71f1fad922ca",
+            "containerId": "",
+            "name": "Get Chats",
+            "url": "http://localhost:3000/chats/2",
+            "method": "GET",
+            "sortNum": 40000,
+            "created": "2023-12-14T14:40:32.196Z",
+            "modified": "2023-12-14T14:43:44.967Z",
+            "headers": [],
+            "params": [],
+            "auth": {
+                "type": "bearer",
+                "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsImlhdCI6MTcwMjU2NTAxMywiZXhwIjoxNzAyNTY4NjEzfQ.1dCMCOqFgF2mxF5xNk9-wTdmvETl2TkJikXrS9UYkqU"
+            },
+            "tests": []
+        },
+        {
+            "_id": "457ccc6c-3318-4c67-b4a8-7dda24cd8802",
+            "colId": "5cb6eec3-a604-4230-a223-71f1fad922ca",
+            "containerId": "",
+            "name": "Get Chat",
+            "url": "http://localhost:3000/chats/2",
+            "method": "GET",
+            "sortNum": 50000,
+            "created": "2023-12-14T14:42:25.398Z",
+            "modified": "2023-12-14T14:47:46.932Z",
+            "headers": [],
+            "params": [],
+            "auth": {
+                "type": "bearer",
+                "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsImlhdCI6MTcwMjU2NTI0NCwiZXhwIjoxNzAyNTY4ODQ0fQ.NEm2SfiPGuW5R1TFkkizXNd3o7rVgQWd_EIBJagaDQ4"
+            },
+            "tests": []
+        },
+        {
+            "_id": "e98036f4-87dc-48bb-a120-e3392a730686",
+            "colId": "5cb6eec3-a604-4230-a223-71f1fad922ca",
+            "containerId": "",
+            "name": "Send message",
+            "url": "http://localhost:3000/chats/2/messages",
+            "method": "POST",
+            "sortNum": 60000,
+            "created": "2023-12-14T14:57:32.720Z",
+            "modified": "2023-12-14T14:57:32.720Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"message\": \"This is my first message\"\n}",
+                "form": []
+            },
+            "auth": {
+                "type": "bearer",
+                "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsImlhdCI6MTcwMjU2NTI0NCwiZXhwIjoxNzAyNTY4ODQ0fQ.NEm2SfiPGuW5R1TFkkizXNd3o7rVgQWd_EIBJagaDQ4"
+            },
+            "tests": []
+        }
+    ]
+}

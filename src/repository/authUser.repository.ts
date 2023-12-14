@@ -1,4 +1,4 @@
-import { DataSource, Repository, UpdateResult } from "typeorm";
+import { DataSource, Repository } from "typeorm";
 import { AuthUser } from "../entity/authUser.entity";
 
 export class AuthUserRepository {

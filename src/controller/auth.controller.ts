@@ -18,7 +18,7 @@ export class AuthController {
 
     registerEndpoints() {
         const authService = this.authService
-        this.app.post("/auth", async function(req: Request, res: Response){
+        this.app.post("/user/login", async function(req: Request, res: Response){
             if (!req.body || !req.body.username || !req.body.password){
                 return res.send(400).send("Please provide a username and password");
             }
@@ -31,7 +31,7 @@ export class AuthController {
             });
         })
         
-        this.app.post("/register", async function(req: Request<any, any,CreateUserDto>, res: Response){
+        this.app.post("/users", async function(req: Request<any, any,CreateUserDto>, res: Response){
             try {
                 let createUser = new CreateUserDto()
                 createUser.firstName = req.body.firstName

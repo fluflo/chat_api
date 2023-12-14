@@ -1,0 +1,295 @@
+openapi: 3.1.3
+info:
+  title: Powercoders Chat API
+  description: |-
+    This is a samle chat api that can be used to create a Chat Frontend application
+
+  contact:
+    email: alex.trittibach@powercoders.org
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: 1.0.0
+externalDocs:
+  description: Find out more about Swagger
+  url: http://swagger.io
+servers:
+  - url: http://localhost:3000
+tags:
+  - name: auth
+    description: Authentication
+  - name: chat
+    description: All the operations for the chats
+  - name: user
+    description: Operations about user
+paths:
+  /users/login:
+    post:
+      tags:
+        - auth
+        - user
+      summary: Login into the chat
+      description: Login and retrieve an authentication token for the user
+      operationId: loginUser
+      requestBody:
+        description: User credentials
+        content:
+          application/json:
+            schema:
+              type: object
+              properties: 
+                username:
+                  type: string
+                  example: theUser
+                password:
+                  type: string
+                  example: Test.12345
+        required: true
+      responses:
+        '200':
+          description: Login Successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Token'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+  /users:
+    post:
+      tags:
+        - user
+      summary: Create user
+      description: Create your user
+      operationId: createUser
+      requestBody:
+        description: Created user object
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                  example: theUser
+                firstName:
+                  type: string
+                  example: John
+                lastName:
+                  type: string
+                  example: James
+                password:
+                  type: string
+                  example: '12345'
+      responses:
+        201:
+          description: Created
+        400:
+          description: Bad request
+        401:
+          description: Unauthorized
+
+
+    get: 
+      tags:
+        - user
+      summary: Get all users except of current
+      description: This can only be done by the logged in user
+      operationId: getUsers
+      responses:
+        default:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/User'
+      security:
+        - auth: []
+  /chats:
+    post:
+      tags:
+        - chat
+      summary: Create chat
+      description: This can only be done by the logged in user.
+      operationId: createChat
+      requestBody:
+        description: Created user object
+        content:
+          application/json:
+            schema:
+              type: object
+              properties: 
+                recipient:
+                  description: userId of recipient
+                  type: integer
+                  format: int64
+                  example: 2
+      responses:
+        201:
+          description: Created
+        401:
+          description: Unauthorized
+      security:
+        - auth: []
+    get:
+      tags:
+        - chat
+      summary: Get all chats of current user
+      description: This can only be done by the logged in user.
+      operationId: getChats
+      
+      responses:
+        200:
+          description: Successful request
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Chat'
+        401:
+          description: Unauthorized
+      security: 
+        - auth: []
+
+  /chats/{chatId} :
+    get:
+      tags:
+        - chat
+      summary: Get chat by id
+      description: This can only be done by the logged in user.
+      operationId: getChatById
+      parameters:
+        - in: path
+          name: chatId
+          schema:
+            type: integer
+          required: true
+          description: Numeric ID of the chat to get
+      
+      responses:
+        200:
+          description: Successful request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Chat'
+        401:
+          description: Unauthorized
+      security:
+        - auth: []
+  /chats/{chatId}/messages :
+    post:
+      tags:
+        - chat
+      summary: Send new message in chat by id
+      description: This can only be done by the logged in user.
+      operationId: sendMessageInChatById
+      parameters:
+        - in: path
+          name: chatId
+          schema:
+            type: integer
+          required: true
+          description: Numeric ID of the chat to get
+      requestBody:
+        description: Message object
+        content:
+          application/json:
+            schema:
+              type: object
+              properties: 
+                message:
+                  description: Message to send
+                  type: string
+                  example: "Hello Mike, How are you?"
+      
+      responses:
+        201:
+          description: Created
+        401:
+          description: Unauthorized
+      security:
+        - auth: []
+
+components:
+  schemas:
+    User:
+      type: object
+      properties:
+        authUserId:
+          type: integer
+          format: int64
+          example: 10
+        firstName:
+          type: string
+          example: John
+        lastName:
+          type: string
+          example: James
+        lastActivity:
+          type: string
+          format: date-time
+          example: '2023-12-14T14:57:21.508Z'
+
+    ChatParticipant:
+      type: object
+      properties:
+        unreadMessages:
+          type: integer
+          format: int64
+          example: 2
+        user:
+          $ref: '#/components/schemas/User'
+    
+    Message:
+      type: object
+      properties:
+        messageId:
+          type: integer
+          format: int64
+          example: 10
+        sendDate:
+          type: string
+          format: date-time
+          example: '2023-12-14T14:57:21.508Z'
+        message:
+          type: string
+          example: 'This is a message'
+
+
+    Chat:
+      type: object
+      properties:
+        chatId:
+          type: integer
+          format: int64
+          example: 10
+        lastActivity:
+          type: string
+          format: date-time
+          example: '2023-12-14T14:57:21.500Z'
+        participants:
+          type: array
+          items:
+            $ref: '#/components/schemas/ChatParticipant'
+        messages:
+          type: array
+          items:
+            $ref: '#/components/schemas/Message'
+    Token:
+      required:
+        - token
+      type: object
+      properties:
+        token:
+          type: string
+
+  securitySchemes:
+    auth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

@@ -6,14 +6,10 @@ import dataSource from "./data-source";
 import { UserRepository } from "./repository/user.repository";
 import { AuthService } from "./service/auth.service";
 import { AuthUserRepository } from "./repository/authUser.repository";
-import { CreateUserDto } from "./dto/createUser.dto";
-import { validate, validateOrReject } from "class-validator";
 import { UserService } from "./service/user.service";
-import { Server } from "socket.io"
 import { AuthController } from "./controller/auth.controller";
 import { UserController } from "./controller/user.controller";
 import { ChatRepository } from "./repository/chat.repository";
-import { ChatParticipant } from "./entity/chatParticipants.entity";
 import { ChatParticipantRepository } from "./repository/chatParticipant.repository";
 import { MessageRepository } from "./repository/message.repository";
 import { ChatService } from "./service/chat.service";
