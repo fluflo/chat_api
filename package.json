@@ -4,6 +4,7 @@
   "description": "A chat api to use, which is coded in JavaScript with express.js, typeorm and websockets",
   "main": "index.js",
   "scripts": {
+    "dev": "tsc && node src/app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
