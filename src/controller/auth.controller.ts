@@ -18,7 +18,7 @@ export class AuthController {
 
     registerEndpoints() {
         const authService = this.authService
-        this.app.post("/user/login", async function(req: Request, res: Response){
+        this.app.post("/users/login", async function(req: Request, res: Response){
             if (!req.body || !req.body.username || !req.body.password){
                 return res.send(400).send("Please provide a username and password");
             }
